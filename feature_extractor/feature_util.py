@@ -15,7 +15,6 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def _get_ccom(data, temp_folder):
     features = []
-    features_size_max = 0
 
     for i in range(0, len(data)):
         temp_output_path = _exec_feature_bin(data[i], 'ccom_extraction', temp_folder)
@@ -25,14 +24,12 @@ def _get_ccom(data, temp_folder):
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
-        features_size_max = max(features_size_max, features_size)
-
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, features_size_max
+    return features
 
 
 def _convert_image(data, input_file):
@@ -53,7 +50,7 @@ def _get_gabriel_gray(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_gabriel_color(data, temp_folder):
@@ -68,7 +65,7 @@ def _get_gabriel_color(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_gabriel_meta(data, temp_folder):
@@ -82,7 +79,7 @@ def _get_gabriel_meta(data, temp_folder):
         os.remove(input_file)
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_gist(data, temp_folder):
@@ -100,13 +97,11 @@ def _get_gist(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_htd(data, temp_folder):
     features = []
-    features_size_max = 0
-
     for i in range(0, len(data)):
         temp_output_path = _exec_feature_bin(data[i], 'mpeg7_htd_extraction', temp_folder)
 
@@ -115,14 +110,13 @@ def _get_htd(data, temp_folder):
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little') * int.from_bytes(d[4:8], byteorder='little')
-        features_size_max = max(features_size_max, features_size)
 
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 8):((j * 8) + 16)])[1])
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_las(data, temp_folder):
@@ -140,12 +134,11 @@ def _get_las(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_sasi(data, temp_folder):
     features = []
-    features_size_max = 0
 
     for i in range(0, len(data)):
         temp_output_path = _exec_feature_bin(data[i], 'sasi_extraction', temp_folder)
@@ -155,19 +148,17 @@ def _get_sasi(data, temp_folder):
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
-        features_size_max = max(features_size_max, features_size)
 
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, features_size_max
+    return features
 
 
 def _get_steerable(data, temp_folder):
     features = []
-    features_size_max = 0
 
     for i in range(0, len(data)):
         temp_output_path = _exec_feature_bin(data[i], 'steerablepyramid_extraction', temp_folder)
@@ -177,14 +168,13 @@ def _get_steerable(data, temp_folder):
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
-        features_size_max = max(features_size_max, features_size)
 
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, features_size_max
+    return features
 
 
 def _get_unser(data, temp_folder):
@@ -202,7 +192,7 @@ def _get_unser(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_qcch(data, temp_folder):
@@ -220,7 +210,7 @@ def _get_qcch(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_lbpri_extraction(data, temp_folder):
@@ -246,7 +236,7 @@ def _get_lbpri_extraction(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _get_hog(data, temp_folder):
@@ -264,7 +254,7 @@ def _get_hog(data, temp_folder):
 
         features.append(np.reshape(f, (-1, 1)))
 
-    return features, len(features[0])
+    return features
 
 
 def _exec_feature_bin(data, feature_file, temp_folder):
@@ -280,7 +270,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     return output_file
 
 
-def _extract_feature(patches, feature_type, temp_folder):
+def get_features_patches(patches, feature_type, temp_folder):
     if feature_type == FeatureType.CCOM:
         return _get_ccom(patches, temp_folder)
     elif feature_type == FeatureType.GRAY:
@@ -318,13 +308,7 @@ def get_features_image(feature_type, path, patch_size_x=30, patch_size_y=30, aug
     if len(patches) <= 0:
         raise Exception("No patches found")
 
-    features, features_size = _extract_feature(patches, feature_type, temp_folder)
-    features_size_max = max(0, features_size)
-
-    features = [np.concatenate((f, np.zeros((features_size_max - len(f), 1)))) for f in features]
-    features = np.reshape(features, (len(features), len(features[0])))
-
-    return features
+    return get_features_patches(patches, feature_type, temp_folder)
 
 
 class FeatureType(enum.Enum):
