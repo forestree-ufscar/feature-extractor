@@ -6,12 +6,11 @@ import tempfile
 
 import cv2
 import numpy as np
+import pkg_resources
 from PIL import Image
 from gdal_util import image_utils
 
 from feature_extractor import extractor_gray, extractor_color, extractor_meta
-
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _get_ccom(data, temp_folder):
@@ -262,7 +261,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     input_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
     output_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
 
-    descriptor_path = os.path.join(CURRENT_DIR, "..", "descriptors_bins", feature_file)
+    descriptor_path = pkg_resources.resource_stream(__name__, f"descriptors_bins/{feature_file}")
 
     _convert_image(data, input_file)
     os.system(f"{descriptor_path} {input_file} {output_file}")
