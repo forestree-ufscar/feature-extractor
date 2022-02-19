@@ -262,6 +262,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     output_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
 
     descriptor_path = pkg_resources.resource_stream(__name__, f"descriptors_bins/{feature_file}")
+    logging.info(f"descriptor_path: {descriptor_path}")
 
     _convert_image(data, input_file)
     os.system(f"{descriptor_path} {input_file} {output_file}")
