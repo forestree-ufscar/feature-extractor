@@ -14,6 +14,7 @@ setup(
     maintainer_email="rodolfocugler@outlook.com",
     long_description=readme,
     packages=["feature_extractor"],
+    package_data={'descriptors_bins': ['descriptors_bins/ccom_distance']},
     include_package_data=True,
     install_requires=[]
 )
