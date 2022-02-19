@@ -15,10 +15,13 @@ def extract_and_save(path, folder, max_workers=8, feature_types=None, patch_size
                          FeatureType.GRAY, FeatureType.HOG, FeatureType.HTD, FeatureType.LAS, FeatureType.LBPRI,
                          FeatureType.QCCH, FeatureType.STEERABLE]
 
+    print(feature_types)
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        print("start1")
         future = {executor.submit(export_features, path, folder, feature_type, patch_size_x, patch_size_y, augmentation,
                                   all_patches, temp_folder): feature_type for feature_type in feature_types}
         concurrent.futures.wait(future, return_when="ALL_COMPLETED")
+        print("end1")
     print("end")
 
 
