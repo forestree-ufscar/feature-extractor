@@ -28,7 +28,7 @@ def _get_ccom(data, temp_folder):
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -96,7 +96,7 @@ def _get_gist(data, temp_folder):
         for v in d[0:-1].split(' '):
             f.append(float(v))
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -115,7 +115,7 @@ def _get_htd(data, temp_folder):
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 8):((j * 8) + 16)])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -133,7 +133,7 @@ def _get_las(data, temp_folder):
         for v in range(0, len(d), 8):
             f.append(struct.unpack('2f', d[v:v + 8])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -153,7 +153,7 @@ def _get_sasi(data, temp_folder):
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -173,7 +173,7 @@ def _get_steerable(data, temp_folder):
         for j in range(0, features_size):
             f.append(struct.unpack('2f', d[((j * 8) + 4):((j * 8) + 12)])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -191,7 +191,7 @@ def _get_unser(data, temp_folder):
         for v in range(0, len(d), 8):
             f.append(struct.unpack('2f', d[v:v + 8])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -209,7 +209,7 @@ def _get_qcch(data, temp_folder):
         for v in range(0, len(d), 8):
             f.append(struct.unpack('2f', d[v:v + 8])[1])
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -235,7 +235,7 @@ def _get_lbpri_extraction(data, temp_folder):
             if not control:
                 control = d[v] == 10
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -253,7 +253,7 @@ def _get_hog(data, temp_folder):
         for v in d[0:-1].split(' '):
             f.append(float(v))
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
