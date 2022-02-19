@@ -26,6 +26,7 @@ def extract_and_save(path, folder, max_workers=8, feature_types=None, patch_size
 
 
 def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augmentation, all_patches, temp_folder):
+    print(feature_type)
     features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation, all_patches,
                                                temp_folder)
     print(os.path.join(folder, f"{feature_type}.csv"))

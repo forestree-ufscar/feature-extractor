@@ -302,7 +302,8 @@ def get_features_patches(patches, feature_type, temp_folder):
 
 def get_features_image(feature_type, path, patch_size_x=30, patch_size_y=30, augmentation=False, all_patches=False,
                        temp_folder=tempfile.gettempdir()):
-    patches = image_utils.get_patches(5, patch_size_x, patch_size_y, path, augmentation=augmentation,
+    info = image_utils.get_info(path)
+    patches = image_utils.get_patches(info.raster_count, patch_size_x, patch_size_y, path, augmentation=augmentation,
                                       all_patches=all_patches)
 
     if len(patches) <= 0:
