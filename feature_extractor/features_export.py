@@ -19,9 +19,11 @@ def extract_and_save(path, folder, max_workers=8, feature_types=None, patch_size
         future = {executor.submit(export_features, path, folder, feature_type, patch_size_x, patch_size_y, augmentation,
                                   all_patches, temp_folder): feature_type for feature_type in feature_types}
         concurrent.futures.wait(future, return_when="ALL_COMPLETED")
+    print("end")
 
 
 def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augmentation, all_patches, temp_folder):
     features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation, all_patches,
                                                temp_folder)
+    print(os.path.join(folder, f"{feature_type}.csv"))
     np.savetxt(os.path.join(folder, f"{feature_type}.csv"), features)
