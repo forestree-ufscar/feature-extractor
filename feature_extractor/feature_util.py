@@ -1,4 +1,5 @@
 import enum
+import logging
 import os
 import struct
 import tempfile
@@ -303,10 +304,13 @@ def get_features_patches(patches, feature_type, temp_folder):
 def get_features_image(feature_type, path, patch_size_x=30, patch_size_y=30, augmentation=False, all_patches=False,
                        temp_folder=tempfile.gettempdir()):
     info = image_utils.get_info(path)
+    logging.info(f"info from {path}: {info.__dict__}")
     patches = image_utils.get_patches(info.raster_count, patch_size_x, patch_size_y, path, augmentation=augmentation,
                                       all_patches=all_patches)
 
+    logging.info(f"quantity of patches for ${path}: {len(patches)}")
     if len(patches) <= 0:
+        logging.error(f"quantity of patches for ${path} is 0")
         raise Exception("No patches found")
 
     return get_features_patches(patches, feature_type, temp_folder)

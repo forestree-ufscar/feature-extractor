@@ -1,4 +1,5 @@
 import concurrent
+import logging
 import os
 import tempfile
 
@@ -15,19 +16,19 @@ def extract_and_save(path, folder, max_workers=8, feature_types=None, patch_size
                          FeatureType.GRAY, FeatureType.HOG, FeatureType.HTD, FeatureType.LAS, FeatureType.LBPRI,
                          FeatureType.QCCH, FeatureType.STEERABLE]
 
-    print(feature_types)
+    logging.info(f"feature_types: {feature_types}")
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        print("start1")
         future = {executor.submit(export_features, path, folder, feature_type, patch_size_x, patch_size_y, augmentation,
                                   all_patches, temp_folder): feature_type for feature_type in feature_types}
         concurrent.futures.wait(future, return_when="ALL_COMPLETED")
-        print("end1")
-    print("end")
+    logging.info(f"all features were exported to: {folder}")
 
 
 def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augmentation, all_patches, temp_folder):
-    print(feature_type)
-    features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation, all_patches,
+    logging.info(f"feature_type: {feature_type}")
+    features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation,
+                                               all_patches,
                                                temp_folder)
-    print(os.path.join(folder, f"{feature_type}.csv"))
-    np.savetxt(os.path.join(folder, f"{feature_type}.csv"), features)
+    dst = os.path.join(folder, f"{feature_type}.csv")
+    logging.info(f"feature_type {feature_type} export to: {dst}")
+    np.savetxt(dst, features)
