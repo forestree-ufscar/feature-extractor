@@ -13,7 +13,7 @@ setup(
     maintainer="Rodolfo Cugler",
     maintainer_email="rodolfocugler@outlook.com",
     long_description=readme,
-    packages=["feature_extractor"],
+    packages=["feature_extractor", "descriptor_bins"],
     install_requires=[],
     include_package_data=True
 )
