@@ -14,7 +14,6 @@ setup(
     maintainer_email="rodolfocugler@outlook.com",
     long_description=readme,
     packages=["feature_extractor"],
-    package_data={"descriptors_bins": ["/descriptors_bins/*"]},
-    install_requires=[],
-    include_package_data=True
+    include_package_data=True,
+    install_requires=[]
 )
