@@ -49,7 +49,7 @@ def _get_gabriel_gray(data, temp_folder):
         f = np.nan_to_num(f)
         os.remove(input_file)
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -64,7 +64,7 @@ def _get_gabriel_color(data, temp_folder):
         f = extractor_color.extract_color_features(image)
         os.remove(input_file)
 
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 
@@ -78,7 +78,7 @@ def _get_gabriel_meta(data, temp_folder):
         image = cv2.imread(input_file)
         f = extractor_meta.extract_meta_features(image)
         os.remove(input_file)
-        features.append(np.reshape(f, (-1, 1)))
+        features.append(np.reshape(f, -1))
 
     return features
 

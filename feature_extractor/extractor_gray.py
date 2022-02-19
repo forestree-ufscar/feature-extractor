@@ -31,10 +31,10 @@ def block_process(img, X, fun):
             if len(block_ravel) < process_length:
                 zeros = np.zeros(process_length - len(block_ravel))
                 block_ravel = np.concatenate((block_ravel, zeros))
-            block = fun(block_ravel)
             h, w = block.shape[:2]
+            block = fun(block_ravel)
             limit_total = h * w
-            B[i:limit_h, j:limit_w] = block[0:limit_total].reshape(block.shape[:2])
+            B[i:limit_h, j:limit_w] = block[0:limit_total].reshape((h, w))
 
     return B
 
