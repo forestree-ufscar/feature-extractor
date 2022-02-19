@@ -262,7 +262,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     input_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
     output_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
 
-    descriptor_path = os.path.join(CURRENT_DIR, "..", "descriptors_bins", feature_file)
+    descriptor_path = os.path.join(CURRENT_DIR, "descriptors_bins", feature_file)
 
     _convert_image(data, input_file)
     os.system(f"{descriptor_path} {input_file} {output_file}")
