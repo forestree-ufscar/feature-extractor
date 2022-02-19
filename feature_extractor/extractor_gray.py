@@ -125,8 +125,8 @@ def extract_gray_features(img):
     # ----------------------#
     # Co-ocorrence MATRIX
     # ---------------------------------#
-    co_ocurrence_matrix = feature.greycomatrix(img, [1], [0], levels=256, normed=True)
-    co_ocurrence_matrix_nonorm = feature.greycomatrix(img, [1], [0], levels=256, normed=False)
+    co_ocurrence_matrix = feature.graycomatrix(img, [1], [0], levels=256, normed=True)
+    co_ocurrence_matrix_nonorm = feature.graycomatrix(img, [1], [0], levels=256, normed=False)
     co_ocurrence_matrix2 = co_ocurrence_matrix[:, :, 0, 0]
     co_ocurrence_matrix_nonorm = co_ocurrence_matrix_nonorm[:, :, 0, 0]
 
@@ -140,9 +140,9 @@ def extract_gray_features(img):
             soma = soma + norm_hist_glcm[i] * np.log2(norm_hist_glcm[i])
 
     com_entropy = -1 * soma
-    com_inertia = feature.greycoprops(co_ocurrence_matrix, 'contrast')
-    com_correlation = feature.greycoprops(co_ocurrence_matrix, 'correlation')
-    com_energy = feature.greycoprops(co_ocurrence_matrix, 'energy')
+    com_inertia = feature.graycoprops(co_ocurrence_matrix, 'contrast')
+    com_correlation = feature.graycoprops(co_ocurrence_matrix, 'correlation')
+    com_energy = feature.graycoprops(co_ocurrence_matrix, 'energy')
     com_energy = com_energy * com_energy
     com_homogeniety = 0
 
