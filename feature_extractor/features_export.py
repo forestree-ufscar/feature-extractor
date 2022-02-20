@@ -2,6 +2,7 @@ import concurrent
 import logging
 import os
 import tempfile
+import traceback
 
 import numpy as np
 
@@ -25,10 +26,14 @@ def extract_and_save(path, folder, max_workers=8, feature_types=None, patch_size
 
 
 def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augmentation, all_patches, temp_folder):
-    logging.info(f"feature_type: {feature_type}")
-    features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation,
-                                               all_patches,
-                                               temp_folder)
-    dst = os.path.join(folder, f"{feature_type}.csv")
-    logging.info(f"feature_type {feature_type} export to: {dst}")
-    np.savetxt(dst, features)
+    try:
+        logging.info(f"feature_type: {feature_type}")
+        features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation,
+                                                   all_patches,
+                                                   temp_folder)
+        dst = os.path.join(folder, f"{feature_type}.csv")
+        logging.info(f"feature_type {feature_type} export to: {dst}")
+        np.savetxt(dst, features)
+    except Exception as e:
+        logging.error(f"error: {e}")
+        logging.error(f"traceback: {traceback.print_exc()}")
