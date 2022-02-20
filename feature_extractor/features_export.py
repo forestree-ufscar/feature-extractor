@@ -29,8 +29,7 @@ def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augm
     try:
         logging.info(f"feature_type: {feature_type}")
         features = feature_util.get_features_image(feature_type, path, patch_size_x, patch_size_y, augmentation,
-                                                   all_patches,
-                                                   temp_folder)
+                                                   all_patches, temp_folder)
         dst = os.path.join(folder, f"{feature_type}.csv")
         logging.info(f"feature_type {feature_type} export to: {dst}")
         np.savetxt(dst, features)
