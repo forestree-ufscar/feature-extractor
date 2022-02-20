@@ -272,7 +272,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     input_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
     output_file = tempfile.mktemp(suffix=".txt", dir=temp_folder)
 
-    descriptor_path = os.path.join(CURRENT_DIR, "descriptors_bins", feature_file.value[0])
+    descriptor_path = os.path.join(CURRENT_DIR, "descriptors_bins", feature_file.value)
 
     _convert_image(data, input_file)
     os.system(f"{descriptor_path} {input_file} {output_file}")
@@ -327,16 +327,16 @@ def get_features_image(feature_type, path, patch_size_x=30, patch_size_y=30, aug
 
 
 class FeatureType(enum.Enum):
-    CCOM = "ccom_extraction",
-    GRAY = "gray",
-    COLOR = "color",
-    META = "meta",
-    GIST = "compute_gist",
-    HTD = "mpeg7_htd_extraction",
-    LAS = "las_extraction",
-    SASI = "sasi_extraction",
-    STEERABLE = "steerablepyramid_extraction",
-    UNSER = "unser_extraction",
-    QCCH = "qcch_extraction",
+    CCOM = "ccom_extraction"
+    GRAY = "gray"
+    COLOR = "color"
+    META = "meta"
+    GIST = "compute_gist"
+    HTD = "mpeg7_htd_extraction"
+    LAS = "las_extraction"
+    SASI = "sasi_extraction"
+    STEERABLE = "steerablepyramid_extraction"
+    UNSER = "unser_extraction"
+    QCCH = "qcch_extraction"
     LBPRI = "LBPri_extraction"
     HOG = "hog"
