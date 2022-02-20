@@ -18,7 +18,7 @@ def _get_ccom(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'ccom_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.CCOM, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -88,7 +88,7 @@ def _get_gist(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(np.array(data[i] / 255, dtype='uint8'), 'compute_gist', temp_folder)
+        temp_output_path = _exec_feature_bin(np.array(data[i] / 255, dtype='uint8'), FeatureType.GIST, temp_folder)
 
         with open(temp_output_path, 'r') as output:
             d = output.readlines()[1]
@@ -106,7 +106,7 @@ def _get_gist(data, temp_folder):
 def _get_htd(data, temp_folder):
     features = []
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'mpeg7_htd_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.HTD, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -127,7 +127,7 @@ def _get_las(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'las_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.LAS, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -146,7 +146,7 @@ def _get_sasi(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'sasi_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.SASI, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -167,7 +167,7 @@ def _get_steerable(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'steerablepyramid_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.STEERABLE, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -188,7 +188,7 @@ def _get_unser(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'unser_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.UNSER, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -207,7 +207,7 @@ def _get_qcch(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'qcch_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.QCCH, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -226,7 +226,7 @@ def _get_lbpri_extraction(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'LBPri_extraction', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.LBPRI, temp_folder)
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
@@ -253,7 +253,7 @@ def _get_hog(data, temp_folder):
     features = []
 
     for i in range(0, len(data)):
-        temp_output_path = _exec_feature_bin(data[i], 'hog', temp_folder)
+        temp_output_path = _exec_feature_bin(data[i], FeatureType.HOG, temp_folder)
 
         with open(temp_output_path, 'r') as output:
             d = output.readlines()[1]
@@ -272,7 +272,7 @@ def _exec_feature_bin(data, feature_file, temp_folder):
     input_file = tempfile.mktemp(suffix=".ppm", dir=temp_folder)
     output_file = tempfile.mktemp(suffix=".txt", dir=temp_folder)
 
-    descriptor_path = os.path.join(CURRENT_DIR, "descriptors_bins", feature_file)
+    descriptor_path = os.path.join(CURRENT_DIR, "descriptors_bins", feature_file.name)
 
     _convert_image(data, input_file)
     os.system(f"{descriptor_path} {input_file} {output_file}")
