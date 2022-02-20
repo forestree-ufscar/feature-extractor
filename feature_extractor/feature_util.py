@@ -22,6 +22,7 @@ def _get_ccom(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
@@ -91,6 +92,7 @@ def _get_gist(data, temp_folder):
 
         with open(temp_output_path, 'r') as output:
             d = output.readlines()[1]
+        os.remove(temp_output_path)
 
         f = []
         for v in d[0:-1].split(' '):
@@ -108,6 +110,7 @@ def _get_htd(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little') * int.from_bytes(d[4:8], byteorder='little')
@@ -128,6 +131,7 @@ def _get_las(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         for v in range(0, len(d), 8):
@@ -146,6 +150,7 @@ def _get_sasi(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
@@ -166,6 +171,7 @@ def _get_steerable(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         features_size = int.from_bytes(d[0:4], byteorder='little')
@@ -186,6 +192,7 @@ def _get_unser(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         for v in range(0, len(d), 8):
@@ -204,6 +211,7 @@ def _get_qcch(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         for v in range(0, len(d), 8):
@@ -222,6 +230,7 @@ def _get_lbpri_extraction(data, temp_folder):
 
         with open(temp_output_path, 'rb') as output:
             d = output.read()
+        os.remove(temp_output_path)
 
         f = []
         control = False
@@ -248,6 +257,7 @@ def _get_hog(data, temp_folder):
 
         with open(temp_output_path, 'r') as output:
             d = output.readlines()[1]
+        os.remove(temp_output_path)
 
         f = []
         for v in d[0:-1].split(' '):
