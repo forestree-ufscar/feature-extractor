@@ -131,8 +131,8 @@ def extract_color_features(img_rgb):
     # gmag_int
     # ret,thresh = cv2.threshold(gmag_int,127,255,0)
     # print(im2, contours, hierarchy, gmag_int, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    _, contours, hierarchy = cv2.findContours(gmag_int, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    if (len(contours) > 0):
+    contours, hierarchy = cv2.findContours(gmag_int, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours) > 0:
         cnt = contours[0]
         momentos = cv2.moments(cnt)
         inv_moments_1 = momentos.get('nu02')
@@ -166,9 +166,9 @@ def extract_color_features(img_rgb):
 
     numpx = cv2.countNonZero(canny_edge)
     perc = float(numpx) / canny_edge.size
-    _, contours, hierarchy = cv2.findContours(canny_edge.astype('uint8'), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(canny_edge.astype('uint8'), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    if (len(contours) > 0):
+    if len(contours) > 0:
         cnt = contours[0]
         momentos = cv2.moments(cnt)
 
