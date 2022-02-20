@@ -4,7 +4,6 @@ import os
 import tempfile
 import traceback
 
-import numpy as np
 import pandas as pd
 
 from feature_extractor import feature_util
