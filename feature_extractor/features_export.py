@@ -5,6 +5,7 @@ import tempfile
 import traceback
 
 import numpy as np
+import pandas as pd
 
 from feature_extractor import feature_util
 from feature_extractor.feature_util import FeatureType
@@ -32,7 +33,8 @@ def export_features(path, folder, feature_type, patch_size_x, patch_size_y, augm
                                                    all_patches, temp_folder)
         dst = os.path.join(folder, f"{feature_type}.csv")
         logging.info(f"feature_type {feature_type} export to: {dst}")
-        np.savetxt(dst, features)
+        df = pd.DataFrame(features)
+        df.to_csv(dst)
     except Exception as e:
         logging.error(f"error: {e}")
         logging.error(f"traceback: {traceback.print_exc()}")
